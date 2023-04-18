@@ -4,8 +4,14 @@
 trialCutoff = 10;
 % Master List of the animal numbers for this project.
 animals = {'2401','2454','2487','2488'};
+%animals = {'2488'};
 % Set this to the location of the transect data files on your machine
-filePath = '/Users/jacksoncone/Documents/GitHub/Transect/';
+[~, name] = system('hostname');
+name = lower(name);
+if contains(name, 'jackson')
+    % filePath = '/Users/jacksoncone/Documents/GitHub/Transect/';
+    filePath = '/Users/Shared/Data/Transect/';
+end
 % Get all Folders on the filePath
 transectDir = dir(filePath);
 % Filter Folders by the list of animals
@@ -51,9 +57,7 @@ for mouse = 1:length(transectDir)
     clear trials stimDesc file dParams
 
     % Get Outcomes and Filter
-    hit = outcomes == 0;
-    fa = outcomes == 1;
-    miss = outcomes == 2;
+    hit = outcomes == 0; fa = outcomes == 1; miss = outcomes == 2;
 
     % Create Table Of all trials
     masterTable = table(azimuths', elevations', hit', miss', fa', topUp', stimTrial');
@@ -65,6 +69,15 @@ for mouse = 1:length(transectDir)
     numLocs = size(testedLocs,1);
 
     %% Change in Perf at each location
+    nTrials = [];
+    nStimTrials = [];
+    nNoStimTrials = [];
+    stimHits = [];
+    noStimHits = [];
+    stimHitRate(i,:) = [];
+    noStimHitRate(i,:) = [];
+    deltaHitRate(i,:) = [];
+
     for i = 1:numLocs
         % Stim indexes for this Loc
         idx = table2array(testedLocs(i,:));
@@ -99,14 +112,12 @@ for mouse = 1:length(transectDir)
     perfTable = table(stimHitRate, noStimHitRate, deltaHitRate, nTrials);
     % Append to Output Table
     testedLocs = [testedLocs, perfTable];
-
     % Only Consider Sessions with more than 100 trials
     testedLocs = testedLocs(testedLocs.nTrials>trialCutoff,:);
-
     %% Plot HeatMap For This Mouse
 
     % 5 degree step sizes on Stimulus Locations
-    scale = -30:5:30;
+    scale = -35:5:35;
     % Init Color and trial count maps
     colorMap = zeros(length(scale),length(scale));
     countMap = zeros(length(scale), length(scale));
@@ -121,6 +132,8 @@ for mouse = 1:length(transectDir)
 
     % Fraction of max trial counts
     normCounts = countMap/max(max(countMap));
+    
+    clearvars testedLocs perfTable masterTable subTable
 
     % Plot Summary Results
     figure('Position', [10 10 500 500]);
@@ -140,16 +153,18 @@ for mouse = 1:length(transectDir)
     ax.FontSize = 14;
     ax.LineWidth = 1;
     ax.TickDir = 'out';
-    ax.XTick = [1, 3, 5, 7, 9, 11, 13];
-    ax.YTick = [1, 3, 5, 7, 9, 11, 13];
+    ax.XTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
+    ax.YTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
     xlim([1 length(colorMap)]);
     ylim([1 length(colorMap)]);
     ax.XTickLabel = {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
     ax.YTickLabel =  {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
-    clim([-0.15, 0.05]);
-    cbh.Ticks = linspace(-0.15, 0.05, 5);
-    cbh.TickLabels ={'-0.15', '-0.10', '-0.05', '0', '0.05'};
+    caxis([-0.20, 0.10]);
+    cbh.Ticks = [-0.20, -0.10, 0, 0.10];
+    cbh.TickLabels ={'-0.20', '-0.10', '0', '0.05'};
     hold off;
     % Save Figure
     saveas(gcf, strcat(animals{1,mouse},"_",string(datetime('today')),'.tif'));
+
+
 end
