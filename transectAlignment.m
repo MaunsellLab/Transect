@@ -1,12 +1,13 @@
 function transectAlignment(brainArea, trialCutoff)
-
+addpath '/Users/jacksoncone/Documents/GitHub/Transect';
 % Grab Transect Data and plot a heatmap of impairment by location
 % trialCutoff = Min Number of Trials at Each Visual Location
 % Master List of the animal numbers for this project.
 if strcmp(brainArea, 'V1') % V1 animals
     animals = {'2401','2454','2487','2488'};
 elseif strcmp(brainArea, 'SC') % SC animals
-    animals = {'2394','2396','2339', '2456', '2475'};
+    animals = {'2339', '2394','2396', '2456', '2475'};
+
 end
 
 % Set this to the location of the transect data files on your machine
