@@ -1,9 +1,7 @@
 function transectAlignment(brainArea, trialCutoff)
 
-% Grab Transect Data
-
+% Grab Transect Data and plot a heatmap of impairment by location
 % trialCutoff = Min Number of Trials at Each Visual Location
-
 % Master List of the animal numbers for this project.
 if strcmp(brainArea, 'V1') % V1 animals
     animals = {'2401','2454','2487','2488'};
