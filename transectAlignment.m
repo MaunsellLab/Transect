@@ -1,17 +1,24 @@
-% Grab Transect Data
-
-% Min Number of Trials at Each Visual Location
-trialCutoff = 10;
+function transectAlignment(brainArea, trialCutoff)
+addpath '/Users/jacksoncone/Documents/GitHub/Transect';
+% Grab Transect Data and plot a heatmap of impairment by location
+% trialCutoff = Min Number of Trials at Each Visual Location
 % Master List of the animal numbers for this project.
-animals = {'2401','2454','2487','2488'};
-%animals = {'2488'};
+if strcmp(brainArea, 'V1') % V1 animals
+    animals = {'2401','2454','2487','2488'};
+elseif strcmp(brainArea, 'SC') % SC animals
+    animals = {'2339', '2394','2396', '2456', '2475'};
+
+end
+
 % Set this to the location of the transect data files on your machine
 [~, name] = system('hostname');
 name = lower(name);
 if contains(name, 'jackson')
-    % filePath = '/Users/jacksoncone/Documents/GitHub/Transect/';
     filePath = '/Users/Shared/Data/Transect/';
+elseif contains(name, 'nrb')
+    filePath = '/Users/jacksoncone/Documents/GitHub/Transect/';
 end
+
 % Get all Folders on the filePath
 transectDir = dir(filePath);
 % Filter Folders by the list of animals
@@ -74,9 +81,9 @@ for mouse = 1:length(transectDir)
     nNoStimTrials = [];
     stimHits = [];
     noStimHits = [];
-    stimHitRate(i,:) = [];
-    noStimHitRate(i,:) = [];
-    deltaHitRate(i,:) = [];
+    stimHitRate = [];
+    noStimHitRate = [];
+    deltaHitRate = [];
 
     for i = 1:numLocs
         % Stim indexes for this Loc
@@ -164,7 +171,7 @@ for mouse = 1:length(transectDir)
     cbh.TickLabels ={'-0.20', '-0.10', '0', '0.05'};
     hold off;
     % Save Figure
-    saveas(gcf, strcat(animals{1,mouse},"_",string(datetime('today')),'.tif'));
-
+    % saveas(gcf, strcat(animals{1,mouse},"_",string(datetime('today')),'.tif'));
+    saveas(gcf, [strcat(filePath, 'Maps/', animals{1,mouse},"_",string(datetime('today')),'.tif')]);
 
 end
