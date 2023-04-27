@@ -6,7 +6,7 @@ addpath '/Users/jacksoncone/Documents/GitHub/Transect';
 if strcmp(brainArea, 'V1') % V1 animals
     animals = {'2401','2454','2487','2488'};
 elseif strcmp(brainArea, 'SC') % SC animals
-    animals = {'2339', '2394','2396', '2456', '2475'};
+    animals = {'2339', '2365', '2394','2396', '2456', '2475'};
 
 end
 
