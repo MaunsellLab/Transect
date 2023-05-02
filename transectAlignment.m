@@ -4,7 +4,7 @@ addpath '/Users/jacksoncone/Documents/GitHub/Transect';
 % trialCutoff = Min Number of Trials at Each Visual Location
 
 % Master List of the animal numbers for this project.
-animals = {'2339','2365','2394','2396','2401','2454','2456', '2475',' 2487','2488'};
+animals = {'2339','2365','2394','2396','2401','2454','2456','2475','2487','2488'};
 
 % Set this to the location of the transect data files on your machine
 [~, name] = system('hostname');
@@ -173,6 +173,6 @@ for mouse = 1:length(transectDir)
     hold off;
     % Save Figure
     % saveas(gcf, strcat(animals{1,mouse},"_",string(datetime('today')),'.tif'));
-    saveas(gcf, [strcat(filePath, 'Maps/', animals{1,mouse},"_",string(datetime('today')),"_",brainArea,'.tif')]);
+    saveas(gcf, [strcat(filePath, 'Maps/', animals{1,mouse},"_",brainArea,'.tif')]);
 
 end
