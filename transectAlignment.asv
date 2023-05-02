@@ -2,9 +2,16 @@ function transectAlignment(brainArea, trialCutoff)
 addpath '/Users/jacksoncone/Documents/GitHub/Transect';
 % Grab Transect Data and plot a heatmap of impairment by location
 % trialCutoff = Min Number of Trials at Each Visual Location
-
 % Master List of the animal numbers for this project.
-animals = {'2339','2365','2394','2396','2401','2454','2456', '2475',' 2487','2488'};
+
+    animals = {'2339', '2401','2454','2487','2488'};
+
+if strcmp(brainArea, 'V1') % V1 animals
+
+elseif strcmp(brainArea, 'SC') % SC animals
+    animals = {, '2365', '2394','2396', '2456', '2475'};
+
+end
 
 % Set this to the location of the transect data files on your machine
 [~, name] = system('hostname');
@@ -22,15 +29,10 @@ transectDir = transectDir(ismember({transectDir.name}, animals));
 
 %% Loop Through Mouse Folders
 for mouse = 1:length(transectDir)
-    cd(strcat(filePath,transectDir(mouse).name,'/','MatFiles/',brainArea));
+    cd(strcat(filePath,transectDir(mouse).name,'/','MatFiles/'));
     % How Many Sessions for This Mouse?
     mouseDir = dir('**/*.mat');
     numSessions = length(mouseDir);
-
-    if numSessions == 0
-        continue
-    end
-    
     % Init 
     stimDesc = [];
     azimuths = [];
@@ -150,7 +152,7 @@ for mouse = 1:length(transectDir)
     s = surf(colorMap, 'EdgeColor','k', 'EdgeAlpha', 0.1);
     s.AlphaData = normCounts;    % set vertex transparencies by trial counts (peak normalized)
     s.FaceAlpha = 'flat';
-    title(strcat('Change in Prop Detected: Mouse'," ", animals{1,mouse}," ", brainArea));
+    title(strcat('Change in Proportion Detected: Mouse'," ", animals{1,mouse}));
     set(gca, 'FontSize', 14);
     colormap("autumn");
     ax = gca;
@@ -173,6 +175,6 @@ for mouse = 1:length(transectDir)
     hold off;
     % Save Figure
     % saveas(gcf, strcat(animals{1,mouse},"_",string(datetime('today')),'.tif'));
-    saveas(gcf, [strcat(filePath, 'Maps/', animals{1,mouse},"_",string(datetime('today')),"_",brainArea,'.tif')]);
+    saveas(gcf, [strcat(filePath, 'Maps/', animals{1,mouse},"_",string(datetime('today')),'.tif')]);
 
 end
