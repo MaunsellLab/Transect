@@ -208,16 +208,13 @@ end
 totalCount = countMapSC+countMapV1;
 % Fraction of max trial counts
 normCounts = totalCount/max(max(totalCount));
+
 % Delete any entries for areas that haven't been tested in both areas
 counts = countMapSC == 0 | countMapV1 == 0;
 normCounts(counts) = 0;
 
-% Set any sites that facilitated performance to 0.
-% colorMapV1(colorMapV1 > 0) = 0;
-% colorMapSC(colorMapSC > 0) = 0;
-
 % Combined Effect Across Both Areas
-colorMap = (colorMapV1 + colorMapSC)/2;
+colorMap = (colorMapV1 + colorMapSC);
 
 % Ratio of V1/SC Effect
 % ratioMap = abs(colorMapV1)./abs(colorMapSC);
