@@ -176,3 +176,4 @@ for mouse = 1:length(transectDir)
     saveas(gcf, [strcat(filePath, 'Maps/', animals{1,mouse},"_",brainArea,'.tif')]);
 
 end
+end
