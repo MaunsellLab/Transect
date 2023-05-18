@@ -213,8 +213,8 @@ counts = countMapSC == 0 | countMapV1 == 0;
 normCounts(counts) = 0;
 
 % Set any sites that facilitated performance to 0.
-colorMapV1(colorMapV1 > 0) = 0;
-colorMapSC(colorMapSC > 0) = 0;
+% colorMapV1(colorMapV1 > 0) = 0;
+% colorMapSC(colorMapSC > 0) = 0;
 
 % Combined Effect Across Both Areas
 colorMap = (colorMapV1 + colorMapSC)/2;
