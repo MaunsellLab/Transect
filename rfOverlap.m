@@ -4,7 +4,7 @@
 % Plots heatmap of the ratio
 
 % Master List of the animal numbers for this project.
-animals = {'2339','2365','2394','2396','2397','2401','2453', '2454','2456','2475','2485','2487','2488'};
+animals = {'2339','2365','2394','2396','2397','2401','2452','2453', '2454','2456','2475','2485','2487','2488'};
 
 % Minimum Number of Trials For Consideration
 trialCutoff = 50;
@@ -13,10 +13,10 @@ addpath '/Users/jacksoncone/Documents/GitHub/Transect';
 % Set this to the location of the transect data files on your machine
 [~, name] = system('hostname');
 name = lower(name);
-if contains(name, 'jackson')
-    filePath = '/Users/Shared/Data/Transect/';
-elseif contains(name, 'nrb')
+if contains(name, 'nrb')
     filePath = '/Users/jacksoncone/Documents/GitHub/Transect/';
+else
+    filePath = '/Users/Shared/Data/Transect/';
 end
 
 % Get all Folders on the filePath
@@ -212,6 +212,9 @@ normCounts = totalCount/max(max(totalCount));
 counts = countMapSC == 0 | countMapV1 == 0;
 normCounts(counts) = 0;
 
+normCountsV1 = countMapV1/max(max(countMapV1));
+normCountsSC = countMapSC/max(max(countMapSC));
+
 % Set any sites that facilitated performance to 0.
 % colorMapV1(colorMapV1 > 0) = 0;
 % colorMapSC(colorMapSC > 0) = 0;
@@ -226,11 +229,12 @@ colorMap = (colorMapV1 + colorMapSC)/2;
 % ratioMap(ratioMap==Inf)=0;
 
 %% Plot Summary Results
-figure('Position', [10 10 500 500]);
+figure('Position', [10 10 1000 1000]);
+subplot(1,2,1);
 hold on;
 axis square;
-s = surf(colorMap, 'EdgeColor','k', 'EdgeAlpha', 0.1);
-s.AlphaData = normCounts;    % set vertex transparencies by trial counts (peak normalized)
+s = surf(colorMapV1, 'EdgeColor','k', 'EdgeAlpha', 0.1);
+s.AlphaData = normCountsV1;    % set vertex transparencies by trial counts (peak normalized)
 s.FaceAlpha = 'flat';
 title(strcat('Avg Change in Perf V1/SC: Mouse'," ", animals{1,mouse}));
 set(gca, 'FontSize', 14);
@@ -245,8 +249,8 @@ ax.LineWidth = 1;
 ax.TickDir = 'out';
 ax.XTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
 ax.YTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
-xlim([1 length(colorMap)]);
-ylim([1 length(colorMap)]);
+xlim([1 length(colorMapV1)]);
+ylim([1 length(colorMapV1)]);
 ax.XTickLabel = {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
 ax.YTickLabel =  {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
 caxis([-0.20, 0.10]);
@@ -254,35 +258,33 @@ cbh.Ticks = [-0.20, -0.10, 0, 0.10];
 cbh.TickLabels ={'-0.20', '-0.10', '0', '0.10'};
 hold off;
 
-% % Ratio of Effect V1/SC
-% subplot(1,2,2);
-% hold on;
-% axis square;
-% s = surf(ratioMap, 'EdgeColor','k', 'EdgeAlpha', 0.1);
-% s.AlphaData = normCounts;    % set vertex transparencies by trial counts (peak normalized)
-% s.FaceAlpha = 'flat';
-% title(strcat('Ratio of Effects in V1/SC: Mouse'," ", animals{1,mouse}));
-% set(gca, 'FontSize', 14);
-% colormap("autumn");
-% ax = gca;
-% grid off;
-% cbh = colorbar;
-% xlabel('Azimuth');
-% ylabel('Elevation');
-% ax.FontSize = 14;
-% ax.LineWidth = 1;
-% ax.TickDir = 'out';
-% ax.XTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
-% ax.YTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
-% xlim([1 length(ratioMap)]);
-% ylim([1 length(ratioMap)]);
-% ax.XTickLabel = {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
-% ax.YTickLabel =  {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
-% caxis([0, 2]);
-% cbh.Ticks = [0, 1, 2];
-% cbh.TickLabels ={'0', '1', '2'};
-% hold off;
-
+subplot(1,2,2);
+hold on;
+axis square;
+s = surf(colorMapSC, 'EdgeColor','k', 'EdgeAlpha', 0.1);
+s.AlphaData = normCountsSC;    % set vertex transparencies by trial counts (peak normalized)
+s.FaceAlpha = 'flat';
+title(strcat('Avg Change in Perf V1/SC: Mouse'," ", animals{1,mouse}));
+set(gca, 'FontSize', 14);
+colormap("autumn");
+ax = gca;
+grid off;
+cbh = colorbar;
+xlabel('Azimuth');
+ylabel('Elevation');
+ax.FontSize = 14;
+ax.LineWidth = 1;
+ax.TickDir = 'out';
+ax.XTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
+ax.YTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
+xlim([1 length(colorMapSC)]);
+ylim([1 length(colorMapSC)]);
+ax.XTickLabel = {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
+ax.YTickLabel =  {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
+caxis([-0.20, 0.10]);
+cbh.Ticks = [-0.20, -0.10, 0, 0.10];
+cbh.TickLabels ={'-0.20', '-0.10', '0', '0.10'};
+hold off;
 % Save Figure
 saveas(gcf, [strcat(filePath, 'ComboMaps/', animals{1,mouse},'_','combo','.tif')]);
 end

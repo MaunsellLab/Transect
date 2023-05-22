@@ -4,15 +4,16 @@ addpath '/Users/jacksoncone/Documents/GitHub/Transect';
 % trialCutoff = Min Number of Trials at Each Visual Location
 
 % Master List of the animal numbers for this project.
-animals = {'2339','2365','2394','2396','2397','2401','2453', '2454','2456','2475','2485','2487','2488'};
+%animals = {'2339','2365','2394','2396','2397','2401','2453', '2454','2456','2475','2485','2487','2488'};
+animals = {'2453'};
 
 % Set this to the location of the transect data files on your machine
 [~, name] = system('hostname');
 name = lower(name);
-if contains(name, 'jackson')
-    filePath = '/Users/Shared/Data/Transect/';
-elseif contains(name, 'nrb')
+if contains(name, 'nrb')
     filePath = '/Users/jacksoncone/Documents/GitHub/Transect/';
+else
+    filePath = '/Users/Shared/Data/Transect/';
 end
 
 % Get all Folders on the filePath
