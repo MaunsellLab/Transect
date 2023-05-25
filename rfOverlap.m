@@ -4,7 +4,7 @@
 % Plots heatmap of the ratio
 
 % Master List of the animal numbers for this project.
-animals = {'2339','2365','2394','2396','2397','2401','2452','2453', '2454','2456','2475','2485','2487','2488'};
+animals = {'2339','2365','2394','2396','2397','2401','2452','2453', '2454','2456','2475','2485','2487','2488','2588'};
 
 % Minimum Number of Trials For Consideration
 trialCutoff = 50;
