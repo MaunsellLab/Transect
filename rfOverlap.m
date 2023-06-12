@@ -239,7 +239,7 @@ axis square;
 s = surf(colorMapV1, 'EdgeColor','k', 'EdgeAlpha', 0.1);
 s.AlphaData = normCountsV1;    % set vertex transparencies by trial counts (peak normalized)
 s.FaceAlpha = 'flat';
-title(strcat('Avg Change in Perf V1/SC: Mouse'," ", animals{1,mouse}));
+title(strcat('Avg Change in Perf V1: Mouse'," ", animals{1,mouse}));
 set(gca, 'FontSize', 14);
 colormap("autumn");
 ax = gca;
@@ -267,7 +267,7 @@ axis square;
 s = surf(colorMapSC, 'EdgeColor','k', 'EdgeAlpha', 0.1);
 s.AlphaData = normCountsSC;    % set vertex transparencies by trial counts (peak normalized)
 s.FaceAlpha = 'flat';
-title(strcat('Avg Change in Perf V1/SC: Mouse'," ", animals{1,mouse}));
+title(strcat('Avg Change in Perf SC: Mouse'," ", animals{1,mouse}));
 set(gca, 'FontSize', 14);
 colormap("autumn");
 ax = gca;
@@ -290,4 +290,39 @@ cbh.TickLabels ={'-0.20', '-0.10', '0', '0.10'};
 hold off;
 % Save Figure
 saveas(gcf, [strcat(filePath, 'ComboMaps/', animals{1,mouse},'_','combo','.tif')]);
+
+%% Combined Effects
+comboMap = colorMapV1 + colorMapSC;
+comboCounts = countMapV1 + countMapSC;
+comboCounts(countMapV1 == 0|countMapSC == 0) = 0;
+normCounts = comboCounts/max(max(comboCounts));
+figure;
+hold on;
+axis square;
+s = surf(comboMap, 'EdgeColor','k', 'EdgeAlpha', 0.1);
+s.AlphaData = normCounts;    % set vertex transparencies by trial counts (peak normalized)
+s.FaceAlpha = 'flat';
+title(strcat('Total Change in Perf V1/SC: Mouse'," ", animals{1,mouse}));
+set(gca, 'FontSize', 14);
+colormap("autumn");
+ax = gca;
+grid off;
+cbh = colorbar;
+xlabel('Azimuth');
+ylabel('Elevation');
+ax.FontSize = 14;
+ax.LineWidth = 1;
+ax.TickDir = 'out';
+ax.XTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
+ax.YTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
+xlim([1 length(colorMapSC)]);
+ylim([1 length(colorMapSC)]);
+ax.XTickLabel = {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
+ax.YTickLabel =  {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
+caxis([-0.40, 0.10]);
+cbh.Ticks = [-0.40, -0.20, 0, 0.10];
+cbh.TickLabels ={'-0.40', '-0.20', '0', '0.10'};
+hold off;
+saveas(gcf, [strcat(filePath, 'sumMaps/', animals{1,mouse},'_','summed','.tif')]);
+
 end
