@@ -6,7 +6,7 @@ addpath '/Users/jacksoncone/Documents/GitHub/Transect';
 % Master List of the animal numbers for this project.
 animals = {'2339','2365','2394','2396','2397',...
     '2401','2452','2453', '2454','2456','2475','2476','2485','2487','2488',...
-    '2588', '2589','2590','2594', '2623', '2625', '2627'};
+    '2588', '2589','2590','2594', '2623', '2624', '2625', '2627'};
 
 % Set this to the location of the transect data files on your machine
 [~, name] = system('hostname');
