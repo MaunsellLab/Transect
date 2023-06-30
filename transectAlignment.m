@@ -25,7 +25,7 @@ transectDir = transectDir(ismember({transectDir.name}, animals));
 %% Loop Through Mouse Folders
 for mouse = 1:length(transectDir)
     cd(strcat(filePath,transectDir(mouse).name,'/','MatFiles/',brainArea));
-    % How Many Sessions for This Mouse?
+    % How Many Sessions for This Mouse
     mouseDir = dir('**/*.mat');
     numSessions = length(mouseDir);
 

@@ -8,8 +8,6 @@ animals = {'2339','2365','2394','2396','2397',...
     '2401','2452','2453', '2454','2456','2475','2476','2485','2487','2488',...
     '2588', '2589','2590','2594', '2623', '2624', '2625', '2627'};
 
-animals = {'2453','2476','2487'};
-
 % Minimum Number of Trials For Consideration
 trialCutoff = 50;
 addpath '/Users/jacksoncone/Documents/GitHub/Transect';
