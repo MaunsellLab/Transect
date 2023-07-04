@@ -27,7 +27,7 @@ transectDir = dir(filePath);
 transectDir = transectDir(ismember({transectDir.name}, animals));
 
 %%  Compute Map for V1
-for mouse = 18:length(transectDir)
+for mouse = 1:length(transectDir)
     cd(strcat(filePath,transectDir(mouse).name,'/','MatFiles/','V1'));
     V1Dir = dir('**/*.mat');
     numSessions = length(V1Dir);
