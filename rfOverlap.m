@@ -4,7 +4,7 @@
 % Plots heatmap of the ratio
 
 % Master List of the animal numbers for this project.
-animals = {'2339','2365','2394','2396','2397',...
+animals = {'2365','2394','2396','2397',...
     '2401','2452','2453', '2454','2456','2475','2476','2485','2487','2488',...
     '2588', '2589','2590','2594', '2623', '2624', '2625', '2627'};
 
@@ -27,7 +27,7 @@ transectDir = dir(filePath);
 transectDir = transectDir(ismember({transectDir.name}, animals));
 
 %%  Compute Map for V1
-for mouse = 1:length(transectDir)
+for mouse = 18:length(transectDir)
     cd(strcat(filePath,transectDir(mouse).name,'/','MatFiles/','V1'));
     V1Dir = dir('**/*.mat');
     numSessions = length(V1Dir);
@@ -291,37 +291,37 @@ hold off;
 saveas(gcf, [strcat(filePath, 'ComboMaps/', animals{1,mouse},'_','combo','.tif')]);
 
 %% Combined Effects
-comboMap = colorMapV1 + colorMapSC;
-comboCounts = countMapV1 + countMapSC;
-comboCounts(countMapV1 == 0|countMapSC == 0) = 0;
-normCounts = comboCounts/max(max(comboCounts));
-figure;
-hold on;
-axis square;
-s = surf(comboMap, 'EdgeColor','k', 'EdgeAlpha', 0.1);
-s.AlphaData = normCounts;    % set vertex transparencies by trial counts (peak normalized)
-s.FaceAlpha = 'flat';
-title(strcat('Total Change in Perf V1/SC: Mouse'," ", animals{1,mouse}));
-set(gca, 'FontSize', 14);
-colormap("autumn");
-ax = gca;
-grid off;
-cbh = colorbar;
-xlabel('Azimuth');
-ylabel('Elevation');
-ax.FontSize = 14;
-ax.LineWidth = 1;
-ax.TickDir = 'out';
-ax.XTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
-ax.YTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
-xlim([1 length(colorMapSC)]);
-ylim([1 length(colorMapSC)]);
-ax.XTickLabel = {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
-ax.YTickLabel =  {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
-caxis([-0.40, 0.10]);
-cbh.Ticks = [-0.40, -0.20, 0, 0.10];
-cbh.TickLabels ={'-0.40', '-0.20', '0', '0.10'};
-hold off;
-saveas(gcf, [strcat(filePath, 'sumMaps/', animals{1,mouse},'_','summed','.tif')]);
+% comboMap = colorMapV1 + colorMapSC;
+% comboCounts = countMapV1 + countMapSC;
+% comboCounts(countMapV1 == 0|countMapSC == 0) = 0;
+% normCounts = comboCounts/max(max(comboCounts));
+% figure;
+% hold on;
+% axis square;
+% s = surf(comboMap, 'EdgeColor','k', 'EdgeAlpha', 0.1);
+% s.AlphaData = normCounts;    % set vertex transparencies by trial counts (peak normalized)
+% s.FaceAlpha = 'flat';
+% title(strcat('Total Change in Perf V1/SC: Mouse'," ", animals{1,mouse}));
+% set(gca, 'FontSize', 14);
+% colormap("autumn");
+% ax = gca;
+% grid off;
+% cbh = colorbar;
+% xlabel('Azimuth');
+% ylabel('Elevation');
+% ax.FontSize = 14;
+% ax.LineWidth = 1;
+% ax.TickDir = 'out';
+% ax.XTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
+% ax.YTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
+% xlim([1 length(colorMapSC)]);
+% ylim([1 length(colorMapSC)]);
+% ax.XTickLabel = {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
+% ax.YTickLabel =  {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
+% caxis([-0.40, 0.10]);
+% cbh.Ticks = [-0.40, -0.20, 0, 0.10];
+% cbh.TickLabels ={'-0.40', '-0.20', '0', '0.10'};
+% hold off;
+% saveas(gcf, [strcat(filePath, 'sumMaps/', animals{1,mouse},'_','summed','.tif')]);
 
 end
