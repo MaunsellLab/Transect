@@ -9,7 +9,7 @@
 %     '2588', '2589','2590','2594', '2623', '2624', '2625', '2627'};
 
 % mice that need a second look
-animals = {'2394','2396', '2397', '2452', '2453', '2456', '2475'};
+animals = {'2588'};
 
 % Minimum Number of Trials For Consideration
 trialCutoff = 50;
