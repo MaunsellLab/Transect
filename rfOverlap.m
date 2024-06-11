@@ -4,13 +4,9 @@
 % Plots heatmap of the ratio
 
 % Master List of the animal numbers for this project.
-% animals = {'2365','2394','2396','2397',...
-%     '2401','2452','2453', '2454','2456','2475','2476','2485','2487','2488',...
-%     '2588', '2589','2590','2594', '2623', '2624', '2625', '2627'};
+%animals = {'2365','2396','2456','2475','2476','2485','2588','2590'};
 
-% mice that need a second look
-animals = {'2624'};
-
+animals = {'2454'};
 % Minimum Number of Trials For Consideration
 trialCutoff = 50;
 addpath '/Users/jacksoncone/Documents/GitHub/Transect';
@@ -254,8 +250,10 @@ ax.LineWidth = 1;
 ax.TickDir = 'out';
 ax.XTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
 ax.YTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
-xlim([1 length(colorMapV1)]);
-ylim([1 length(colorMapV1)]);
+%xlim([1 length(colorMapV1)]);
+%ylim([1 length(colorMapV1)]);
+xlim([8 15]);
+ylim([4.5 12.5]);
 ax.XTickLabel = {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
 ax.YTickLabel =  {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
 caxis([-0.20, 0.10]);
@@ -282,8 +280,10 @@ ax.LineWidth = 1;
 ax.TickDir = 'out';
 ax.XTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
 ax.YTick = [2.5, 4.5, 6.5, 8.5, 10.5, 12.5, 14.5];
-xlim([1 length(colorMapSC)]);
-ylim([1 length(colorMapSC)]);
+% xlim([1 length(colorMapSC)]);
+% ylim([1 length(colorMapSC)]);
+xlim([8 15]);
+ylim([4.5 12.5]);
 ax.XTickLabel = {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
 ax.YTickLabel =  {'-30', '-20', '-10', '0', '+10', '+20', '+30'};
 caxis([-0.20, 0.10]);
