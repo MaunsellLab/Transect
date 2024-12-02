@@ -9,7 +9,7 @@ addpath '/Users/jacksoncone/Documents/GitHub/Transect';
 %     '2588', '2589','2590','2594', '2623', '2624', '2625', '2627'};
 
 % mice still in transect
-animals = {'2590','2594', '2623', '2624', '2625', '2627'};
+animals = {'2454'};
 
 % Set this to the location of the transect data files on your machine
 [~, name] = system('hostname');
@@ -152,7 +152,9 @@ for mouse = 1:length(transectDir)
     figure('Position', [10 10 500 500]);
     hold on;
     axis square;
-    s = surf(colorMap, 'EdgeColor','k', 'EdgeAlpha', 0.1);
+    s = pcolor(colorMap);
+    s.EdgeColor = 'k';
+    %s.FaceColor = 'interp';
     s.AlphaData = normCounts;    % set vertex transparencies by trial counts (peak normalized)
     s.FaceAlpha = 'flat';
     title(strcat('Change in Prop Detected: Mouse'," ", animals{1,mouse}," ", brainArea));
