@@ -4,9 +4,9 @@
 % Plots heatmap of the ratio
 
 % Master List of the animal numbers for this project.
-%animals = {'2365','2396','2456','2475','2476','2485','2588','2590'};
+animals = {'2365','2401','2452','2454','2456','2476','2485','2588','2590'};
 
-animals = {'2454'};
+%animals = {'2454'};
 % Minimum Number of Trials For Consideration
 trialCutoff = 50;
 addpath '/Users/jacksoncone/Documents/GitHub/Transect';
@@ -33,6 +33,9 @@ for mouse = 1:length(transectDir)
     if numSessions == 0
         continue
     end
+    disp(transectDir(mouse).name)
+    disp('V1')
+    disp(numSessions)
 
     stimDesc = [];
     azimuths = [];
@@ -107,6 +110,9 @@ for mouse = 1:length(transectDir)
     cd(strcat(filePath,transectDir(mouse).name,'/','MatFiles/','SC'));
     SCDir = dir('**/*.mat');
     numSessions = length(SCDir);
+    disp(transectDir(mouse).name)
+    disp('SC')
+    disp(numSessions)
     if numSessions == 0
         continue
     end
